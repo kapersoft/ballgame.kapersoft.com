@@ -32,6 +32,11 @@ function Obstacle(opening, location, speed) {
 
     };
 
+    this.passedBall = function(ball)
+    {
+        return this.x + this.width < ball.x - ball.radius;
+    };
+
     this.onscreen = function() {
         return this.x + this.width > 0;
     };
