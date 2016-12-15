@@ -1,6 +1,7 @@
 // game objects
 var ball;
 var obstacles = [];
+var banner;
 
 // score
 var score = 0;
@@ -13,7 +14,7 @@ var obstaclesLeft = 0;
 var minimalObstacleOpening = 0;
 var maximumObstacleOpening = 0;
 var newObstacleRate = 0;
-var gameSpeed = 0;
+var gameSpeed = 5;
 
 // misc
 var count = 0;
@@ -49,6 +50,7 @@ function setLevel(level) {
     // soft-reset game
     obstacles = [];
     count = 0;
+    banner = new Banner('Ballgame', 'Level ' + round(difficulty));
 }
 
 function setup() {
@@ -57,16 +59,42 @@ function setup() {
     newGame();
 }
 
-function draw() {
-    // Draw ball
+function draw()
+{
     background(0, 0, 255);
+
+    if (banner) {
+        bannerDraw();
+    } else{
+        gameDraw();
+    }
+
+    // Show score and difficulty
+    fill(0);
+    rect(0, height-200, width, height);
+    fill(color(255,255,0));
+    textSize(round(windowHeight / 30));
+    textAlign(LEFT);
+    text('Score: ' + round(score) + ' (last: ' + round(lastscore) + ', high: ' + round(highscore) + ')', 50, height-125);
+    text('Level: ' + round(difficulty) + '/10 (' + round(obstaclesLeft) + ' obstacle' + (obstaclesLeft>1 ? 's ' : ' ') + 'left)', 50, height-50);
+}
+
+function bannerDraw()
+{
+    banner.speed = gameSpeed;
+    banner.update();
+    banner.show();
+}
+
+function gameDraw()
+{
+    // Draw ball
     ball.update();
     ball.show();
 
     // Add obstacles
     if (((count == 0) || (count % round(newObstacleRate) == 0)) &&
-        (obstaclesLeft - obstacles.length > 0))
-    {
+        (obstaclesLeft - obstacles.length > 0)) {
         var opening = random(minimalObstacleOpening, maximumObstacleOpening);
         obstacleLocation = obstacleLocation + random(-2, 2) * difficulty;
         obstacleLocation = Math.min(Math.max(obstacleLocation, -5), 5);
@@ -74,8 +102,7 @@ function draw() {
     }
 
     // Display obstacles and check for hits
-    for (var i=obstacles.length-1; i >= 0; i--)
-    {
+    for (var i=obstacles.length-1; i >= 0; i--) {
         if (obstacles[i].checkHit(ball)) {
             newGame();
             break;
@@ -100,26 +127,26 @@ function draw() {
         setLevel();
     }
 
-    // Show score and difficulty
-    fill(0);
-    rect(0, height-200, width, height);
-    fill(255);
-    textSize(50);
-    text('Score: ' + round(score) + ' (last: ' + round(lastscore) + ', high: ' + round(highscore) + ')', 50, height-125);
-    text('Level: ' + round(difficulty) + '/10 (' + round(obstaclesLeft) + ' obstacle' + (obstaclesLeft>1 ? 's ' : ' ') + 'left)', 50, height-75);
-
     // Loop
     count += 1;
 }
 
-function keyPressed() {
-    if (key = ' ')
-    {
+function userInput()
+{
+    if(banner) {
+        banner = null
+    } else {
         ball.up();
     }
+
+}
+
+function keyPressed() {
+    if (key = ' ') userInput();
+    return false;
 }
 
 function touchStarted() {
-    ball.up();
+    userInput();
     return false;
 }
