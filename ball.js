@@ -8,7 +8,7 @@ function Ball() {
     this.size = this.radius * 2;
 
     this.show = function() {
-        fill(color(255,255,0));
+        fill(color(255,0,0));
         ellipse(this.x, this.y, this.radius * 2, this.radius * 2);
     };
 
