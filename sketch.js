@@ -17,6 +17,7 @@ var gameSpeed = 0;
 
 // misc
 var count = 0;
+var obstacleLocation = 0;
 
 function newGame() {
     obstacles = [];
@@ -36,14 +37,14 @@ function setLevel(level) {
     if (difficulty < 1) difficulty = 1;
 
     // Calc difficulty
-    newObstacleRate = map(difficulty, 1, 10, 200, 75);
-    minimalObstacleOpening = ball.size * map(difficulty, 1, 10, 7, 5);
-    maximumObstacleOpening = ball.size * map(difficulty, 1, 10, 5, 3);
+    newObstacleRate = map(difficulty, 1, 10, 120, 60);
+    minimalObstacleOpening = ball.size * map(difficulty, 1, 10, 4, 2.5);
+    maximumObstacleOpening = ball.size * map(difficulty, 1, 10, 7, 5);
     var baseGravity = windowHeight / 2000;
     ball.setGravity(map(difficulty, 1, 10, baseGravity, baseGravity * 2));
     ball.setLift(map(difficulty, 1, 10, baseGravity * 20, baseGravity * 30));
     obstaclesLeft = difficulty * 5;
-    gameSpeed = map(difficulty, 1, 10, 3, 6);
+    gameSpeed = map(difficulty, 1, 10, 5, 10);
 
     // soft-reset game
     obstacles = [];
@@ -67,8 +68,9 @@ function draw() {
         (obstaclesLeft - obstacles.length > 0))
     {
         var opening = random(minimalObstacleOpening, maximumObstacleOpening);
-        var location = round(random(-1 , 1)) * (difficulty / 2);
-        obstacles.push(new Obstacle(opening, location, gameSpeed));
+        obstacleLocation = obstacleLocation + random(-2, 2) * difficulty;
+        obstacleLocation = Math.min(Math.max(obstacleLocation, -5), 5);
+        obstacles.push(new Obstacle(opening, obstacleLocation, gameSpeed));
     }
 
     // Display obstacles and check for hits
