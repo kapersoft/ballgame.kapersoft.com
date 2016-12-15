@@ -66,7 +66,6 @@ function draw() {
     if (((count == 0) || (count % round(newObstacleRate) == 0)) &&
         (obstaclesLeft - obstacles.length > 0))
     {
-        console.log('new!');
         var opening = random(minimalObstacleOpening, maximumObstacleOpening);
         var location = round(random(-1 , 1)) * (difficulty / 2);
         obstacles.push(new Obstacle(opening, location, gameSpeed));
