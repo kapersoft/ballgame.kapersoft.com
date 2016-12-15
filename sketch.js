@@ -80,16 +80,14 @@ function draw() {
             newGame();
             break;
         }
-        if (obstacle[i].passedBall(ball))
-        {
-            score += map(difficulty, 1, 10, 100, 500);
-            obstaclesLeft -= 1;
-        }
-
         if (obstacles[i].onscreen()) {
             obstacles[i].update();
             obstacles[i].show();
         } else {
+            if (!obstacles[i].isHit) {
+                score += map(difficulty, 1, 10, 100, 500);
+                obstaclesLeft -= 1;
+            }
             obstacles.splice(i, 1);
         }
 
@@ -97,7 +95,7 @@ function draw() {
 
     // Set score and level
     score = score + difficulty;
-    if (obstaclesLeft == 0 && obstacles.length == 0) {
+    if (obstaclesLeft == 0) {
         score += map(difficulty, 1, 10, 1000, 50000);
         setLevel();
     }
