@@ -106,7 +106,7 @@ function draw() {
     fill(255);
     textSize(50);
     text('Score: ' + round(score) + ' (last: ' + round(lastscore) + ', high: ' + round(highscore) + ')', 50, height-125);
-    text('Level: ' + difficulty + '/10 (' + obstaclesLeft + ' obstacle' + (obstaclesLeft>1 ? 's ' : ' ') + 'left)', 50, height-75);
+    text('Level: ' + round(difficulty) + '/10 (' + round(obstaclesLeft) + ' obstacle' + (obstaclesLeft>1 ? 's ' : ' ') + 'left)', 50, height-75);
 
     // Loop
     count += 1;
