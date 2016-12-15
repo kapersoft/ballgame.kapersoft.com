@@ -19,9 +19,17 @@ function Obstacle(opening, location, speed) {
     };
 
     this.checkHit = function(ball) {
-        return (ball.y < this.y || ball.y > this.y + this.opening)
-            && ball.x > this.x
-            && ball.x < (this.x + this.width);
+        var ballTop =  ball.y - ball.radius;
+        var ballBottom = ball.y + ball.radius;
+        var ballLeft = ball.x - ball.radius;
+        var ballRight = ball.x + ball.radius;
+        var hit = false;
+
+        if (ballRight > this.x && ballLeft < this.x + this.width)
+            hit = (ballTop < this.y || ballBottom > this.y + this.opening);
+
+        return hit;
+
     };
 
     this.onscreen = function() {
