@@ -1,10 +1,10 @@
 function Ball() {
-    this.x = windowWidth/10;
-    this.y = windowHeight /2;
+    this.x = width/10;
+    this.y = height /2;
     this.gravity = 0;
     this.lift = this.gravity * 30;
     this.velocity = 0;
-    this.radius = windowHeight/50;
+    this.radius = height/50;
     this.size = this.radius * 2;
 
     this.show = function() {

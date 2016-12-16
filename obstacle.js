@@ -4,7 +4,7 @@ function Obstacle(opening, location, speed) {
     this.opening = opening;
     this.y = map(location, -5, 5, TOP_EDGE, height - this.opening - BOTTOM_EDGE);
     this.x = width;
-    this.width = windowWidth/15;
+    this.width = width/15;
     this.speed = speed;
     this.isHit = false;
 
