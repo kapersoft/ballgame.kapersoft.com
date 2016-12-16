@@ -19,6 +19,7 @@ var gameSpeed = 5;
 // misc
 var count = 0;
 var obstacleLocation = 0;
+var fps = {frameRates: [], avgFrameRate: 0, lastUpdate: new Date()};
 
 function newGame() {
     obstacles = [];
@@ -69,7 +70,7 @@ function draw()
         gameDraw();
     }
 
-    // Show score and difficulty
+    // Show score, difficulty and fps
     fill(0);
     rect(0, height-200, width, height);
     fill(color(255,255,0));
@@ -77,7 +78,27 @@ function draw()
     textAlign(LEFT);
     text('Score: ' + round(score) + ' (last: ' + round(lastscore) + ', high: ' + round(highscore) + ')', 50, height-125);
     text('Level: ' + round(difficulty) + '/10 (' + round(obstaclesLeft) + ' obstacle' + (obstaclesLeft>1 ? 's ' : ' ') + 'left)', 50, height-50);
+    fill(color(255, 0, 0));
+    text('FPS:' + round(getAvgFrameRate()), windowWidth * 0.8, windowHeight * 0.05);
 }
+
+
+function getAvgFrameRate() {
+    const updateInterval = 1000; // milliseconds
+
+    if (new Date() - fps.lastUpdate > updateInterval) {
+        var total = 0;
+        for (var i = 0; i < fps.frameRates.length; i++) {
+            total += fps.frameRates[i];
+        }
+        fps.avgFrameRate = round(total / fps.frameRates.length);
+        fps.lastUpdate = new Date();
+        fps.frameRates = [];
+    }
+    fps.frameRates.push(frameRate());
+    return fps.avgFrameRate;
+}
+
 
 function bannerDraw()
 {
