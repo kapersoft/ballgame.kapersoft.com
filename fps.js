@@ -1,28 +1,28 @@
 Fps = function() {
+    this.avgFrameRate = 0;
     const updateInterval = 1000; // 1 second
     var frameRates = [];
-    var avgFrameRate = 0;
     var lastUpdate = new Date();
 
 
     this.draw = function () {
         frameRates.push(frameRate());
         if (new Date() - lastUpdate > updateInterval) {
-            calculateAvgFrameRate();
+            this.calculateAvgFrameRate();
         }
 
         fill(color(255, 0, 0));
         textSize(round(height / 30));
         textAlign(LEFT);
-        text('FPS:' + round(avgFrameRate), width * 0.8, height * 0.05);
+        text('FPS:' + round(this.avgFrameRate), width * 0.8, height * 0.05);
     };
 
-    function calculateAvgFrameRate() {
+    this.calculateAvgFrameRate = function() {
         var total = 0;
         for (var i = 0; i < frameRates.length; i++) {
             total += frameRates[i];
         }
-        avgFrameRate = round(total / frameRates.length);
+        this.avgFrameRate = round(total / frameRates.length);
         lastUpdate = new Date();
         frameRates = [];
     }

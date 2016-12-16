@@ -8,7 +8,7 @@ Game = function() {
     var minimalObstacleOpening = 0;
     var maximumObstacleOpening = 0;
     var newObstacleRate = 0;
-    var gameSpeed = 5;
+    var gameSpeed = 0;
 
     // misc
     var count = 0;
@@ -28,7 +28,7 @@ Game = function() {
             var opening = random(minimalObstacleOpening, maximumObstacleOpening);
             obstacleLocation = obstacleLocation + random(-2, 2) * global.difficulty;
             obstacleLocation = Math.min(Math.max(obstacleLocation, -5), 5);
-            obstacles.push(new Obstacle(opening, obstacleLocation, gameSpeed));
+            obstacles.push(new Obstacle(opening, obstacleLocation, gameSpeed * global.frameRateModifier));
         }
 
         // Display obstacles and check for hits

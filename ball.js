@@ -14,7 +14,7 @@ function Ball() {
 
     this.update = function() {
         // Move object
-        this.velocity += this.gravity;
+        this.velocity += this.gravity * global.frameRateModifier;
         this.y += this.velocity;
 
         // Check constrains (bird can't fly away!)
@@ -30,7 +30,7 @@ function Ball() {
     };
 
     this.up = function() {
-        this.velocity =- this.lift;
+        this.velocity =- this.lift * global.frameRateModifier;
     };
 
     this.setGravity = function(gravity) {

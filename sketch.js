@@ -5,8 +5,7 @@ var fps;
 var infoScreen;
 
 //
-var global = {obstaclesLeft: 0, difficulty: 0, score: 0, lastscore: 0, highscore: 0};
-
+var global = {obstaclesLeft: 0, difficulty: 0, score: 0, lastscore: 0, highscore: 0, frameRateModifier: 1};
 
 
 function setup() {
@@ -27,11 +26,11 @@ function draw() {
     } else{
         game.draw();
         saveScores();
-
     }
 
     infoScreen.draw();
     fps.draw();
+    global.frameRateModifier = 60 / fps.avgFrameRate;
 }
 
 function saveScores() {
