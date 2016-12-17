@@ -6,11 +6,13 @@ Banner = function(title, line, countDown) {
     this.x = width * 0.1;
     this.width = width * 0.8;
     this.height = height - this.y - BOTTOM_EDGE;
-    this.removeBanner = false;
+    this.closeBanner = false;
 
     var userClick = 2;
     var lastUpdate = new Date();
     const updateInterval = 1000; // 1 second
+
+    appMode = MODE_BANNER;
 
 
     this.draw = function () {
@@ -51,7 +53,7 @@ Banner = function(title, line, countDown) {
     this.userInput = function () {
         userClick -= 1;
         if (userClick == 0)
-            this.removeBanner = true;
+            this.closeBanner = true;
     };
 
 
@@ -61,7 +63,7 @@ Banner = function(title, line, countDown) {
             lastUpdate = new Date();
         }
         if (countDown < 1) {
-            this.removeBanner = true;
+            this.closeBanner = true;
         }
     }
 

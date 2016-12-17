@@ -8,6 +8,14 @@ InfoScreen = function() {
         textAlign(LEFT);
         text('Score: ' + round(global.score) + ' (last: ' + round(global.lastscore) + ', high: ' + round(global.highscore) + ')', 50, height - 125);
         text('Level: ' + round(global.difficulty) + '/10 (' + round(global.obstaclesLeft) + ' obstacle' + (global.obstaclesLeft>1 ? 's ' : ' ') + 'left)', 50, height - 50);
-
+        textSize(round(height / 20));
     };
+
+    this.userInput = function() {
+        var y = mouseY || touches[touches.length -1].y;
+        if (y > height - 200) {
+            credits = new Credits();
+        }
+    }
+
 };

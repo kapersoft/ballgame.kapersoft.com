@@ -3,7 +3,14 @@ var game;
 var banner;
 var fps;
 var infoScreen;
+var credits;
+
+// Game info
 var global = {obstaclesLeft: 0, difficulty: 0, score: 0, lastscore: 0, highscore: 0, frameRateModifier: 1};
+const MODE_BANNER = 0;
+const MODE_GAME = 1;
+const MODE_CREDITS = 2;
+var appMode = MODE_BANNER;
 
 // Sounds
 var music;
@@ -32,13 +39,31 @@ function setup() {
 function draw() {
     background(0, 0, 255);
 
-    playMusic(banner == undefined);
-
-    if (banner) {
-        banner.removeBanner ? banner = null : banner.draw();
-    } else{
-        game.draw();
-        saveScores();
+    switch (appMode) {
+        case MODE_BANNER:
+            playMusic(false);
+            if (!banner.closeBanner) {
+                banner.draw()
+            } else {
+                banner = null;
+                appMode = MODE_GAME;
+            }
+            break;
+        case MODE_GAME:
+            playMusic(true);
+            game.draw();
+            saveScores();
+            break;
+        case MODE_CREDITS:
+            playMusic(true);
+            credits.draw();
+            if (!credits.closeCredits) {
+                credits.draw()
+            } else {
+                credits = null;
+                appMode = MODE_GAME;
+            }
+            break;
     }
 
     infoScreen.draw();
@@ -62,11 +87,25 @@ function saveScores() {
 
 
 function userInput() {
-    if (banner) {
-        banner.userInput();
-    } else {
-        game.userInput();
+    switch (appMode) {
+        case MODE_BANNER:
+            banner.userInput();
+            break;
+        case MODE_CREDITS:
+            credits.userInput();
+            break;
+        case MODE_GAME:
+            infoScreen.userInput();
+            if (appMode == MODE_GAME)
+                game.userInput();
+            break;
     }
+}
+
+
+function mouseIsPressed() {
+    userInput();
+    return false;
 }
 
 

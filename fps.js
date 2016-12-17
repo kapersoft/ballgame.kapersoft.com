@@ -14,7 +14,7 @@ Fps = function() {
         fill(color(255, 0, 0));
         textSize(round(height / 30));
         textAlign(LEFT);
-        text('FPS:' + round(this.avgFrameRate), width * 0.8, height * 0.05);
+        text('FPS:' + round(this.avgFrameRate), width * 0.78, height * 0.05);
     };
 
     this.calculateAvgFrameRate = function() {
