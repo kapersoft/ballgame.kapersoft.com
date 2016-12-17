@@ -3,10 +3,7 @@ var game;
 var banner;
 var fps;
 var infoScreen;
-
-//
 var global = {obstaclesLeft: 0, difficulty: 0, score: 0, lastscore: 0, highscore: 0, frameRateModifier: 1};
-
 
 function setup() {
     global.highscore = Cookies.get('highscore') || 0;
@@ -17,6 +14,7 @@ function setup() {
     infoScreen = new InfoScreen(global);
     fps = new Fps();
 }
+
 
 function draw() {
     background(0, 0, 255);
@@ -32,6 +30,7 @@ function draw() {
     fps.draw();
     global.frameRateModifier = 60 / fps.avgFrameRate;
 }
+
 
 function saveScores() {
     Cookies.set('highscore', global.highscore);
