@@ -5,6 +5,19 @@ var fps;
 var infoScreen;
 var global = {obstaclesLeft: 0, difficulty: 0, score: 0, lastscore: 0, highscore: 0, frameRateModifier: 1};
 
+// Sounds
+var music;
+var soundEndgame;
+var soundJump;
+
+
+function preload() {
+    music = loadSound("sounds/music.mp3");
+    soundEndgame = loadSound("sounds/endgame.wav");
+    soundJump = loadSound("sounds/jump.wav");
+}
+
+
 function setup() {
     global.highscore = Cookies.get('highscore') || 0;
     global.lastscore = Cookies.get('lastscore') || 0;
@@ -19,6 +32,8 @@ function setup() {
 function draw() {
     background(0, 0, 255);
 
+    playMusic(banner == undefined);
+
     if (banner) {
         banner.removeBanner ? banner = null : banner.draw();
     } else{
@@ -31,11 +46,20 @@ function draw() {
     global.frameRateModifier = 60 / fps.avgFrameRate;
 }
 
+function playMusic(bool) {
+    if (!music.isPlaying() && bool)
+        music.play();
+
+    if (music.isPlaying() && !bool)
+        music.stop();
+}
+
 
 function saveScores() {
     Cookies.set('highscore', global.highscore);
     Cookies.set('lastscore', global.lastscore);
 }
+
 
 function userInput() {
     if (banner) {

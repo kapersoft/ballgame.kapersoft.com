@@ -34,6 +34,7 @@ Game = function() {
         // Display obstacles and check for hits
         for (var i = obstacles.length - 1; i >= 0; i--) {
             if (obstacles[i].checkHit(ball)) {
+                soundEndgame.play();
                 newGame();
                 break;
             }
@@ -61,6 +62,7 @@ Game = function() {
     };
 
     this.userInput = function() {
+        soundJump.play();
         ball.up();
     };
 
