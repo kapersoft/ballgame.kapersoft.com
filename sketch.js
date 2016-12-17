@@ -16,12 +16,14 @@ var appMode = MODE_BANNER;
 var music;
 var soundEndgame;
 var soundJump;
+var soundNextlevel;
 
 
 function preload() {
     music = loadSound("sounds/music.mp3");
     soundEndgame = loadSound("sounds/endgame.wav");
     soundJump = loadSound("sounds/jump.wav");
+    soundNextlevel = loadSound("sounds/nextLevel.wav");
 }
 
 

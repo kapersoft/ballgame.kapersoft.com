@@ -53,6 +53,7 @@ Game = function() {
         // Set score and level
         global.score += global.difficulty;
         if (global.obstaclesLeft == 0) {
+            soundNextlevel.play();
             global.score += map(global.difficulty, 1, 10, 1000, 50000);
             setLevel();
         }
