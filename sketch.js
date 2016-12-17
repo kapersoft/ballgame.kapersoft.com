@@ -23,7 +23,7 @@ function preload() {
     music = loadSound("sounds/music.mp3");
     soundEndgame = loadSound("sounds/endgame.wav");
     soundJump = loadSound("sounds/jump.wav");
-    soundNextlevel = loadSound("sounds/nextLevel.wav");
+    soundNextlevel = loadSound("sounds/nextlevel.wav");
 }
 
 
