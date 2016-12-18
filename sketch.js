@@ -24,13 +24,14 @@ function preload() {
     soundEndgame = loadSound("sounds/endgame.wav");
     soundJump = loadSound("sounds/jump.wav");
     soundNextlevel = loadSound("sounds/nextlevel.wav");
+
+    global.highscore = Cookies.get('highscore') || 0;
+    global.lastscore = Cookies.get('lastscore') || 0;
+
 }
 
 
 function setup() {
-    global.highscore = Cookies.get('highscore') || 0;
-    global.lastscore = Cookies.get('lastscore') || 0;
-
     createCanvas(windowWidth, windowHeight);
     game = new Game(global, banner);
     infoScreen = new InfoScreen(global);
@@ -54,7 +55,6 @@ function draw() {
         case MODE_GAME:
             playMusic(true);
             game.draw();
-            saveScores();
             break;
         case MODE_CREDITS:
             playMusic(true);
@@ -72,6 +72,7 @@ function draw() {
     fps.draw();
     global.frameRateModifier = 60 / fps.avgFrameRate;
 }
+
 
 function playMusic(bool) {
     if (!music.isPlaying() && bool)

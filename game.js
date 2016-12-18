@@ -16,6 +16,7 @@ Game = function() {
 
     newGame();
 
+
     this.draw = function() {
 
         // Draw ball
@@ -35,6 +36,7 @@ Game = function() {
         for (var i = obstacles.length - 1; i >= 0; i--) {
             if (obstacles[i].checkHit(ball)) {
                 soundEndgame.play();
+                global.lastscore = global.score;
                 newGame();
                 break;
             }
@@ -62,21 +64,24 @@ Game = function() {
         count += 1;
     };
 
+
     this.userInput = function() {
         soundJump.play();
         ball.up();
     };
 
+
     function newGame() {
         obstacles = [];
-        global.lastscore = global.score;
         if (global.highscore < global.score) {
             global.highscore = global.score;
         }
+        saveScores();
         count = 0;
         global.score = 0;
         setLevel(1);
     }
+
 
     function setLevel(level) {
         global.difficulty = level ? level : global.difficulty + 1;
