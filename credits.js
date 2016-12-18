@@ -41,10 +41,10 @@ Credits = function() {
         var x = mouseX || touches[touches.length -1].x;
         var y = mouseY || touches[touches.length -1].y;
 
-        if ((x >= (this.x + this.width * 0.1)) &&
-            (x <= (this.x + this.width * 0.8)) &&
-            (y >= (this.y + this.height * 0.7) &&
-            (y <= (this.y + this.height * 0.8)))) {
+        if ((x >= (this.x)) &&
+            (x <= (this.x + this.width)) &&
+            (y >= (this.y + this.height * 0.45) &&
+            (y <= (this.y + this.height)))) {
             open("https://github.com/kapersoft/ballgame.kapersoft.com/");
         }
         else {
