@@ -76,7 +76,7 @@ function draw() {
 
 function playMusic(bool) {
     if (!music.isPlaying() && bool)
-        music.play();
+        music.loop();
 
     if (music.isPlaying() && !bool)
         music.stop();
